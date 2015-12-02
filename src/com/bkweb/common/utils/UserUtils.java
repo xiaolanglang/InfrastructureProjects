@@ -4,7 +4,6 @@
 package com.bkweb.common.utils;
 
 import java.security.Principal;
-import java.util.List;
 
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.UnavailableSecurityManagerException;

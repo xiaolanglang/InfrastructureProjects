@@ -100,7 +100,7 @@ public class SessionCacheManager implements CacheManager {
 			
 			if (logger.isDebugEnabled()){
 				HttpServletRequest request = Servlets.getRequest();
-//				logger.debug("put {} {} {}", cacheKeyName, key, request != null ? request.getRequestURI() : "");
+				logger.debug("put {} {} {}", cacheKeyName, key, request != null ? request.getRequestURI() : "");
 			}
 			
 			return value;

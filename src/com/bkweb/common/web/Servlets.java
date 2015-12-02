@@ -6,7 +6,6 @@
 package com.bkweb.common.web;
 
 import java.io.UnsupportedEncodingException;
-import java.security.Principal;
 import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.Map;
@@ -25,7 +24,6 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import com.bkweb.common.config.Global;
 import com.bkweb.common.utils.Encodes;
 import com.bkweb.common.utils.StringUtils;
-import com.bkweb.common.utils.UserUtils;
 import com.google.common.net.HttpHeaders;
 
 /**
@@ -212,8 +210,8 @@ public class Servlets {
 	 */
 	public static boolean isAjaxRequest(HttpServletRequest request){
 		
-		String accept = request.getHeader("accept");
-		String xRequestedWith = request.getHeader("X-Requested-With");
+//		String accept = request.getHeader("accept");
+//		String xRequestedWith = request.getHeader("X-Requested-With");
 //		Principal principal = UserUtils.getPrincipal();
 
 		// 如果是异步请求或是手机端，则直接返回信息

@@ -39,6 +39,7 @@ public class IPtest{
 //		
 //		System.out.println("本机IP地址： " + ipStr + " 本机名称： " + addressStr);
 		
+		@SuppressWarnings("static-access")
 		String ipStr = this.getRealIp();
 		System.out.println("本机IP地址： " + ipStr);
 		
