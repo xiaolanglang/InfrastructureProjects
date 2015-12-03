@@ -34,14 +34,14 @@ public interface ICrudDao<T> {
 	public void clear();
 
 	/**
-	 * 获取单条数据
+	 * 获取单条数据 By ID
 	 * 
 	 * @param entity
 	 * @param batchTable
 	 * 
 	 * @return
 	 */
-	public T get(T entity, String... batchTable);
+	public T get(T entity, String... associationPaths);
 
 	/**
 	 * 分页查询

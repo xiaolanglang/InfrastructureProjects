@@ -72,13 +72,13 @@ public abstract class CrudDao<T extends DataEntity<T>> implements ICrudDao<T> {
 	}
 
 	/**
-	 * 获取单条数据
+	 * 获取单条数据 By ID
 	 * 
 	 * @param entity
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
-	public T get(T entity, String... batchTable) {
+	public T get(T entity, String... associationPaths) {
 		return (T) getSession().get(entity.getClass(), entity.getId());
 	}
 
@@ -90,11 +90,11 @@ public abstract class CrudDao<T extends DataEntity<T>> implements ICrudDao<T> {
 		createCriterion(criteria, entity, associationPaths);
 
 		page.init(page, criteria);
-		
+
 		@SuppressWarnings("unchecked")
 		List<T> list = criteria.list();
 		page.setList(list);
-		
+
 		return page.getList();
 	}
 
