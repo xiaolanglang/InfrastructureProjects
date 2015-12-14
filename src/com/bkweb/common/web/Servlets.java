@@ -21,7 +21,7 @@ import org.apache.commons.lang3.Validate;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import com.bkweb.common.config.Global;
+import com.bkweb.common.config.CommonGlobal;
 import com.bkweb.common.utils.Encodes;
 import com.bkweb.common.utils.StringUtils;
 import com.google.common.net.HttpHeaders;
@@ -37,10 +37,10 @@ public class Servlets {
 	public static final long ONE_YEAR_SECONDS = 60 * 60 * 24 * 365;
 	
 	// 静态文件后缀
-	private final static String[] staticFiles = StringUtils.split(Global.getConfig("web.staticFile"), ",");
+	private final static String[] staticFiles = StringUtils.split(CommonGlobal.getConfig("web.staticFile"), ",");
 	
 	// 动态映射URL后缀
-	private final static String urlSuffix = Global.getUrlSuffix();
+	private final static String urlSuffix = CommonGlobal.getUrlSuffix();
 
 	/**
 	 * 设置客户端缓存过期时间 的Header.

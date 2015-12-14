@@ -22,7 +22,7 @@ import org.slf4j.LoggerFactory;
 
 import redis.clients.jedis.Jedis;
 
-import com.bkweb.common.config.Global;
+import com.bkweb.common.config.CommonGlobal;
 import com.bkweb.common.utils.DateUtils;
 import com.bkweb.common.utils.JedisUtils;
 import com.bkweb.common.utils.StringUtils;
@@ -54,12 +54,12 @@ public class JedisSessionDAO extends AbstractSessionDAO implements SessionDAO {
 				return;
 			}
 			// 如果是视图文件，则不更新SESSION
-			if (StringUtils.startsWith(uri, Global.getConfig("web.view.prefix"))
-					&& StringUtils.endsWith(uri, Global.getConfig("web.view.suffix"))){
+			if (StringUtils.startsWith(uri, CommonGlobal.getConfig("web.view.prefix"))
+					&& StringUtils.endsWith(uri, CommonGlobal.getConfig("web.view.suffix"))){
 				return;
 			}
 			// 手动控制不更新SESSION
-			if (Global.NO.equals(request.getParameter("updateSession"))){
+			if (CommonGlobal.NO.equals(request.getParameter("updateSession"))){
 				return;
 			}
 		}

@@ -17,7 +17,7 @@ import org.apache.shiro.subject.support.DefaultSubjectContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.bkweb.common.config.Global;
+import com.bkweb.common.config.CommonGlobal;
 import com.bkweb.common.utils.DateUtils;
 import com.bkweb.common.utils.StringUtils;
 import com.bkweb.common.web.Servlets;
@@ -51,13 +51,13 @@ public class CacheSessionDAO extends EnterpriseCacheSessionDAO implements Sessio
 				return;
 			}
 			// 如果是视图文件，则不更新SESSION
-			if (StringUtils.startsWith(uri, Global.getConfig("web.view.prefix"))
-					&& StringUtils.endsWith(uri, Global.getConfig("web.view.suffix"))) {
+			if (StringUtils.startsWith(uri, CommonGlobal.getConfig("web.view.prefix"))
+					&& StringUtils.endsWith(uri, CommonGlobal.getConfig("web.view.suffix"))) {
 				return;
 			}
 			// 手动控制不更新SESSION
 			String updateSession = request.getParameter("updateSession");
-			if (Global.FALSE.equals(updateSession) || Global.NO.equals(updateSession)) {
+			if (CommonGlobal.FALSE.equals(updateSession) || CommonGlobal.NO.equals(updateSession)) {
 				return;
 			}
 		}

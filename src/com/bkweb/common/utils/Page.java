@@ -3,7 +3,7 @@ package com.bkweb.common.utils;
 import java.io.Serializable;
 import java.util.List;
 
-import com.bkweb.common.config.Global;
+import com.bkweb.common.config.CommonGlobal;
 import com.bkweb.common.json.Title;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.github.pagehelper.PageHelper;
@@ -96,12 +96,12 @@ public class Page<E> implements Serializable{
 
 	public Page()
 	{
-		this.pageSize=Global.getPageSize();
+		this.pageSize=CommonGlobal.getPageSize();
 	}
 
 	public Page(int pageNum)
 	{
-		this.pageSize=Global.getPageSize();
+		this.pageSize=CommonGlobal.getPageSize();
 		this.pageNum=pageNum;
 	}
 

@@ -1,8 +1,3 @@
-/**
- * Copyright (c) 2005-2011 springside.org.cn
- * 
- * $Id: PropertiesLoader.java 1690 2012-02-22 13:42:00Z calvinxiu $
- */
 package com.bkweb.common.utils;
 
 import java.io.IOException;
@@ -18,7 +13,9 @@ import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 
 /**
- * Properties文件载入工具类. 可载入多个properties文件, 相同的属性在最后载入的文件中的值将会覆盖之前的值，但以System的Property优先.
+ * Properties文件载入工具类. 可载入多个properties文件,
+ * 相同的属性在最后载入的文件中的值将会覆盖之前的值，但以System的Property优先.
+ * 
  * @author calvin
  * @version 2013-05-15
  */
@@ -47,9 +44,9 @@ public class PropertiesLoader {
 			return systemProperty;
 		}
 		if (properties.containsKey(key)) {
-	        return properties.getProperty(key);
-	    }
-	    return "";
+			return properties.getProperty(key);
+		}
+		return "";
 	}
 
 	/**
@@ -110,7 +107,8 @@ public class PropertiesLoader {
 	}
 
 	/**
-	 * 取出Boolean类型的Property，但以System的Property优先.如果都为Null抛出异常,如果内容不是true/false则返回false.
+	 * 取出Boolean类型的Property，但以System的Property优先.如果都为Null抛出异常,如果内容不是true/
+	 * false则返回false.
 	 */
 	public Boolean getBoolean(String key) {
 		String value = getValue(key);
@@ -121,7 +119,8 @@ public class PropertiesLoader {
 	}
 
 	/**
-	 * 取出Boolean类型的Property，但以System的Property优先.如果都为Null则返回Default值,如果内容不为true/false则返回false.
+	 * 取出Boolean类型的Property，但以System的Property优先.如果都为Null则返回Default值,如果内容不为true/
+	 * false则返回false.
 	 */
 	public Boolean getBoolean(String key, boolean defaultValue) {
 		String value = getValue(key);
@@ -136,7 +135,7 @@ public class PropertiesLoader {
 
 		for (String location : resourcesPaths) {
 
-//			logger.debug("Loading properties file from:" + location);
+			// logger.debug("Loading properties file from:" + location);
 
 			InputStream is = null;
 			try {

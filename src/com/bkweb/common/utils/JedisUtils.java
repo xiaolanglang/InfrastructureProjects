@@ -14,7 +14,7 @@ import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.exceptions.JedisException;
 
-import com.bkweb.common.config.Global;
+import com.bkweb.common.config.CommonGlobal;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
@@ -31,7 +31,7 @@ public class JedisUtils {
 	
 	private static JedisPool jedisPool = SpringContextHolder.getBean(JedisPool.class);
 
-	public static final String KEY_PREFIX = Global.getConfig("redis.keyPrefix");
+	public static final String KEY_PREFIX = CommonGlobal.getConfig("redis.keyPrefix");
 	
 	/**
 	 * 获取缓存

@@ -7,7 +7,7 @@ import org.hibernate.Criteria;
 import org.hibernate.criterion.ProjectionList;
 import org.hibernate.criterion.Projections;
 
-import com.bkweb.common.config.Global;
+import com.bkweb.common.config.CommonGlobal;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class HPage<T> {
@@ -74,7 +74,7 @@ public class HPage<T> {
 			pageNum = 1;
 		}
 		this.pageNum = pageNum;
-		this.pageSize = Global.getPageSize();
+		this.pageSize = CommonGlobal.getPageSize();
 
 	}
 

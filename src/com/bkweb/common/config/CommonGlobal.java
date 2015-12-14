@@ -1,6 +1,3 @@
-/**
- * Copyright &copy; 2012-2014 <a href="https://github.com/thinkgem/jeesite">JeeSite</a> All rights reserved.
- */
 package com.bkweb.common.config;
 
 import java.util.Map;
@@ -15,19 +12,19 @@ import com.google.common.collect.Maps;
  * @author ThinkGem
  * @version 2014-06-25
  */
-public class Global {
+public class CommonGlobal {
 
 	/**
 	 * 当前对象实例
 	 */
-	private static Global global = new Global();
+	private static CommonGlobal global = new CommonGlobal();
 
 	/**
 	 * 保存全局属性值
 	 */
 	private static Map<String, String> map = Maps.newHashMap();
 
-	public static final String PROPERTIES_PATH = "classpath:config/privates/bkweb.properties";
+	public static final String PROPERTIES_PATH = "classpath:/com/bkweb/common/config/common.properties";
 
 	/**
 	 * 属性文件加载对象
@@ -37,7 +34,7 @@ public class Global {
 	/**
 	 * 获取当前对象实例
 	 */
-	public static Global getInstance() {
+	public static CommonGlobal getInstance() {
 		return global;
 	}
 
@@ -62,20 +59,6 @@ public class Global {
 	 */
 	public static int getPageSize() {
 		return Integer.parseInt(getConfig("page.pageSize"));
-	}
-
-	/**
-	 * 获取管理端根路径
-	 */
-	public static String getPath() {
-		return getConfig("adminPath");
-	}
-
-	/**
-	 * 获取前端根路径
-	 */
-	public static String getFrontPath() {
-		return getConfig("frontPath");
 	}
 
 	/**
@@ -124,7 +107,7 @@ public class Global {
 	 */
 	public static Object getConst(String field) {
 		try {
-			return Global.class.getField(field).get(null);
+			return CommonGlobal.class.getField(field).get(null);
 		} catch (Exception e) {
 			// 异常代表无配置，这里什么也不做
 		}
