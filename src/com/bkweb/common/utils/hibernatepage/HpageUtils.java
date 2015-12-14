@@ -7,6 +7,9 @@ public class HpageUtils {
 	private static int slider = 1;// 前后显示页面长度
 
 	public static String page(HPage<?> page) {
+		if (page == null) {
+			return null;
+		}
 		int first = 1, pageNum = page.getPageNum(), pageSize = page.getPageSize(), last = 0, prev = 0, next = 0;
 		long count = page.getCount();
 
@@ -54,7 +57,8 @@ public class HpageUtils {
 		if (pageNum == first) {// 如果是首页
 			sb.append("<a class=\"disabled btn btn-default\" href=\"javascript:\">上一页</a>\n");
 		} else {
-			sb.append("<a class=\"btn btn-default\" href=\"javascript:\" onclick=\"" + funcName + "(" + prev + "," + pageSize + ");\">上一页</a>\n");
+			sb.append("<a class=\"btn btn-default\" href=\"javascript:\" onclick=\"" + funcName + "(" + prev + ","
+					+ pageSize + ");\">上一页</a>\n");
 		}
 
 		int begin = pageNum - (length / 2);
@@ -76,8 +80,8 @@ public class HpageUtils {
 		if (begin > first) {
 			int i = 0;
 			for (i = first; i < first + slider && i < begin; i++) {
-				sb.append("<a class=\"btn btn-default\" href=\"javascript:\" onclick=\"" + funcName + "(" + i + "," + pageSize + ");\">"
-						+ (i + 1 - first) + "</a>\n");
+				sb.append("<a class=\"btn btn-default\" href=\"javascript:\" onclick=\"" + funcName + "(" + i + ","
+						+ pageSize + ");\">" + (i + 1 - first) + "</a>\n");
 			}
 			if (i < begin) {
 				sb.append("<a class=\"disabled btn btn-default\" href=\"javascript:\">...</a>\n");
@@ -88,8 +92,8 @@ public class HpageUtils {
 			if (i == pageNum) {
 				sb.append("<a class=\"active btn btn-default\" href=\"javascript:\">" + (i + 1 - first) + "</a>\n");
 			} else {
-				sb.append("<a class=\"btn btn-default\" href=\"javascript:\" onclick=\"" + funcName + "(" + i + "," + pageSize + ");\">"
-						+ (i + 1 - first) + "</a>\n");
+				sb.append("<a class=\"btn btn-default\" href=\"javascript:\" onclick=\"" + funcName + "(" + i + ","
+						+ pageSize + ");\">" + (i + 1 - first) + "</a>\n");
 			}
 		}
 
@@ -99,28 +103,33 @@ public class HpageUtils {
 		}
 
 		for (int i = end + 1; i <= last; i++) {
-			sb.append("<a class=\"btn btn-default\" href=\"javascript:\" onclick=\"" + funcName + "(" + i + "," + pageSize + ");\">"
-					+ (i + 1 - first) + "</a>\n");
+			sb.append("<a class=\"btn btn-default\" href=\"javascript:\" onclick=\"" + funcName + "(" + i + ","
+					+ pageSize + ");\">" + (i + 1 - first) + "</a>\n");
 		}
 
 		if (pageNum == last) {
 			sb.append("<a class=\"disabled btn btn-default\" href=\"javascript:\">下一页 </a>\n");
 		} else {
-			sb.append("<a class=\"btn btn-default\" href=\"javascript:\" onclick=\"" + funcName + "(" + next + ");\">" + "下一页</a>\n");
+			sb.append("<a class=\"btn btn-default\" href=\"javascript:\" onclick=\"" + funcName + "(" + next + ");\">"
+					+ "下一页</a>\n");
 		}
 
-//		sb.append("<a class=\"disabled controls btn btn-default\" href=\"javascript:\">当前第");
-//		sb.append("<input type=\"text\" value=\"" + pageNum
-//				+ "\" onkeypress=\"var e=window.event||this;var c=e.keyCode||e.which;if(c==13)");
-//		sb.append(funcName + "(this.value," + pageSize + ");\" onclick=\"this.select();\"/> / ");
-//		sb.append("<input type=\"text\" value=\"" + pageSize
-//				+ "\" onkeypress=\"var e=window.event||this;var c=e.keyCode||e.which;if(c==13)");
-//		sb.append(funcName + "(" + pageNum + ",this.value);\" onclick=\"this.select();\"/> 条，");
-//		sb.append("</a>\n");
+		// sb.append("<a class=\"disabled controls btn btn-default\" href=\"javascript:\">当前第");
+		// sb.append("<input type=\"text\" value=\"" + pageNum
+		// +
+		// "\" onkeypress=\"var e=window.event||this;var c=e.keyCode||e.which;if(c==13)");
+		// sb.append(funcName + "(this.value," + pageSize +
+		// ");\" onclick=\"this.select();\"/> / ");
+		// sb.append("<input type=\"text\" value=\"" + pageSize
+		// +
+		// "\" onkeypress=\"var e=window.event||this;var c=e.keyCode||e.which;if(c==13)");
+		// sb.append(funcName + "(" + pageNum +
+		// ",this.value);\" onclick=\"this.select();\"/> 条，");
+		// sb.append("</a>\n");
 
-//		sb.append("<div style=\"clear:both;\"></div>");
+		// sb.append("<div style=\"clear:both;\"></div>");
 
-		 sb.insert(0,"<div>\n").append("</div>\n");
+		sb.insert(0, "<div>\n").append("</div>\n");
 
 		return sb.toString();
 	}

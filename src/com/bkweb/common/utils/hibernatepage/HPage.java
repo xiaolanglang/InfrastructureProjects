@@ -71,7 +71,7 @@ public class HPage<T> {
 
 	public HPage(Integer pageNum) {
 		if (pageNum == null) {
-			pageNum = 0;
+			pageNum = 1;
 		}
 		this.pageNum = pageNum;
 		this.pageSize = Global.getPageSize();
