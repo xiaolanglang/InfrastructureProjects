@@ -45,7 +45,6 @@ public class GzipFilter implements Filter {
 		if (isGZipEncoding(req)) {
 			HttpServletResponse resp = (HttpServletResponse) response;
 
-			// System.out.println("gzip>>>>>>>>>>>>>>>" + req.getRequestURI());
 			MyHttpServletResponseWrapper wrapper = new MyHttpServletResponseWrapper(resp);
 			chain.doFilter(request, wrapper);
 			byte[] gzipData = gzip(wrapper.getResponseData());
