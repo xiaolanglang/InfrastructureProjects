@@ -78,6 +78,15 @@ public class HPage<T> {
 
 	}
 
+	public HPage(Integer pageNum, Integer pageSize) {
+		if (pageNum == null) {
+			pageNum = 1;
+		}
+		this.pageNum = pageNum;
+		this.pageSize = pageSize;
+
+	}
+
 	public List<T> getList() {
 		return list;
 	}
