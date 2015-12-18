@@ -16,6 +16,7 @@ public class TourismImg extends DataEntity<TourismImg> {
 	private String url;
 	private String name;
 	private Double size;
+	private String cover;
 
 	// Constructors
 
@@ -61,6 +62,14 @@ public class TourismImg extends DataEntity<TourismImg> {
 
 	public void setSize(Double size) {
 		this.size = size;
+	}
+
+	public String getCover() {
+		return cover;
+	}
+
+	public void setCover(String cover) {
+		this.cover = cover;
 	}
 
 }

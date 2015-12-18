@@ -20,5 +20,8 @@
 		<property name="size" type="java.lang.Double">
 			<column name="size" length="8" />
 		</property>
+		<property name="cover" type="java.lang.String">
+			<column name="cover" length="1" />
+		</property>
 	</class>
 </hibernate-mapping>
