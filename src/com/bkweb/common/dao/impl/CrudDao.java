@@ -48,7 +48,7 @@ public abstract class CrudDao<T extends DataEntity<T>> implements ICrudDao<T> {
 	protected Session session;
 
 	protected Session getSession() {
-		// 事务必须是开启的(Required)，否则获取不到
+		// 事务必须是开启的(Required)，否则获取不到的
 		return sessionFactory.getCurrentSession();
 	}
 
