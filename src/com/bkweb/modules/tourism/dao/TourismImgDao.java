@@ -8,4 +8,9 @@ import com.bkweb.modules.tourism.entity.TourismImg;
 @Component
 public class TourismImgDao extends CrudDao<TourismImg> {
 
+	public void clearCover(String tourismId) {
+		getSession().createQuery(
+				"update " + TourismImg.class.getSimpleName() + " set cover = '0' where tourism.id = '" + tourismId
+						+ "'").executeUpdate();
+	}
 }

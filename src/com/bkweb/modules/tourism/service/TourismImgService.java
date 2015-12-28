@@ -39,4 +39,12 @@ public class TourismImgService extends CrudService<TourismImgDao, TourismImg> {
 		tourismImg.setSize(((double) file.length()) / 1200 / 1200);
 		saveOrUpdate(tourismImg);
 	}
+
+	public void cover(TourismImg tourismImg) {
+		tourismImg = get(tourismImg);
+		dao.clearCover(tourismImg.getTourism().getId());
+		// 1为封面
+		tourismImg.setCover("1");
+		update(tourismImg);
+	}
 }
