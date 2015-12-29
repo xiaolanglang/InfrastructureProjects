@@ -14,9 +14,11 @@ public class TourismImg extends DataEntity<TourismImg> {
 	private static final long serialVersionUID = 1L;
 	private Tourism tourism;
 	private String url;
+	private String localUrl;
 	private String name;
 	private Double size;
 	private String cover;
+	private String type;
 
 	// Constructors
 
@@ -70,6 +72,22 @@ public class TourismImg extends DataEntity<TourismImg> {
 
 	public void setCover(String cover) {
 		this.cover = cover;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public String getLocalUrl() {
+		return localUrl;
+	}
+
+	public void setLocalUrl(String localUrl) {
+		this.localUrl = localUrl;
 	}
 
 }

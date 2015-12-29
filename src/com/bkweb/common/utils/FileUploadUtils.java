@@ -18,6 +18,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
+import com.bkweb.common.config.CommonGlobal;
+
 public class FileUploadUtils {
 
 	private static WebApplicationContext webApplicationContext = ContextLoader.getCurrentWebApplicationContext();
@@ -200,18 +202,16 @@ public class FileUploadUtils {
 	}
 
 	/**
-	 * 输出的文件路径：D:\KaiFaRuanJian\apache-tomcat-6.0.41\webapps\wqzb\ upload
+	 * 例子：输出的文件路径：D:\KaiFaRuanJian\apache-tomcat-6.0.41\webapps\wqzb\ upload
 	 * 
 	 * @return
 	 */
-	public static String getBasePath() {
-
-		String path = servletContext.getRealPath("/WEB-INF/upload");
-		return path;
+	public static String getUploadPath() {
+		return getPath("/WEB-INF/upload");
 	}
 
 	/**
-	 * 输出的文件路径：D:\KaiFaRuanJian\apache-tomcat-6.0.41\webapps\wqzb\ upload
+	 * 例子：输出的文件路径：D:\KaiFaRuanJian\apache-tomcat-6.0.41\webapps\项目名称\文件夹
 	 * 
 	 * @param path
 	 * @return
@@ -221,15 +221,14 @@ public class FileUploadUtils {
 	}
 
 	/**
-	 * 结果获得localhost:8080/bkweb/
+	 * 例子：输出的文件路径：D:\KaiFaRuanJian\apache-tomcat-6.0.41\webapps\项目名称
 	 * 
-	 * @param request
+	 * @param webApp
+	 *            项目名称
 	 * @return
 	 */
-	public static String getWebPath(HttpServletRequest request) {
-		String path = request.getContextPath();
-		String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path
-				+ "/";
-		return basePath;
+	public static String getTomcatWebAppsPath(String webApp) {
+		return getPath("").replace(CommonGlobal.getConfig("webApp"), webApp);
 	}
+
 }

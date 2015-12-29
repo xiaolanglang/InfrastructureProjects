@@ -2,6 +2,8 @@ package com.bkweb.common.config;
 
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import com.bkweb.common.utils.PropertiesLoader;
 import com.ckfinder.connector.ServletContextFactory;
 import com.google.common.collect.Maps;
@@ -137,5 +139,30 @@ public class CommonGlobal {
 		}
 		System.out.println("qqwryPath:" + dir);
 		return dir;
+	}
+
+	/**
+	 * 结果获得localhost:8080/bkweb
+	 * 
+	 * @param request
+	 * @return
+	 */
+	public static String getWebPath(HttpServletRequest request) {
+		return getWebPath(request, request.getContextPath());
+	}
+
+	/**
+	 * 结果获得localhost:8080/服务名称
+	 * 
+	 * @param request
+	 * @param webApp
+	 *            服务名称 例如：/bkweb
+	 * 
+	 * @return
+	 */
+	public static String getWebPath(HttpServletRequest request, String webApp) {
+		String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
+				+ webApp;
+		return basePath;
 	}
 }

@@ -1,9 +1,14 @@
 package com.bkweb.modules.tourism.service;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
+import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Service;
@@ -12,32 +17,70 @@ import org.springframework.transaction.annotation.Transactional;
 import com.bkweb.common.config.CommonGlobal;
 import com.bkweb.common.service.impl.CrudService;
 import com.bkweb.common.utils.FileUploadUtils;
+import com.bkweb.common.utils.FileUtils;
 import com.bkweb.common.utils.IdUtils;
+import com.bkweb.common.web.Result;
 import com.bkweb.modules.tourism.dao.TourismImgDao;
-import com.bkweb.modules.tourism.entity.Tourism;
 import com.bkweb.modules.tourism.entity.TourismImg;
 
 @Service
 @Transactional
 public class TourismImgService extends CrudService<TourismImgDao, TourismImg> {
 
-	public void save(Tourism tourism, HttpServletRequest request) {
-		TourismImg tourismImg = new TourismImg();
-		tourismImg.setTourism(tourism);
+	/**
+	 * 先把文件保存到磁盘中，然后判断文件大小，如果尺寸不符合，就删除磁盘中的文件，如果符合就保存信息
+	 * 
+	 * @param tourismImg
+	 * @param request
+	 * @param result
+	 */
+	public void save(TourismImg tourismImg, HttpServletRequest request, Result result) {
+
+		if (checkSave(tourismImg)) {
+			result.setCode("500");
+			result.setMessage("已经有对应的图片了，请先删除之前的图片");
+			return;
+		}
 
 		String fileName = IdUtils.uuid();
 		SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
 		String date = format.format(new Date());
 
 		String url = CommonGlobal.getConfig("file.imgLocalPath") + "/" + date;
+		String localUrl = FileUploadUtils.getTomcatWebAppsPath(CommonGlobal.getConfig("fileWebApp")) + url;
 
-		File file = FileUploadUtils.upload(request, FileUploadUtils.getPath(url), fileName);
+		File file = FileUploadUtils.upload(request, localUrl, fileName);
 
-		String name = file.getName();
-		tourismImg.setUrl(url + "/" + name);
-		tourismImg.setName(name.substring(0, name.lastIndexOf(".")));
-		tourismImg.setSize(((double) file.length()) / 1200 / 1200);
-		saveOrUpdate(tourismImg);
+		boolean flag = checkImgSize(tourismImg.getType(), file, result);
+		if (flag) {
+			String name = file.getName();
+			tourismImg
+					.setUrl(CommonGlobal.getWebPath(request, CommonGlobal.getConfig("fileWebApp")) + url + "/" + name);
+			tourismImg.setLocalUrl(file.getAbsolutePath());
+			tourismImg.setName(name.substring(0, name.lastIndexOf(".")));
+			tourismImg.setSize(((double) file.length()) / 1200 / 1200);
+			saveOrUpdate(tourismImg);
+			result.setCode("200");
+			result.setMessage("上传图片成功");
+		} else {
+			FileUtils.deleteFile(file.getAbsolutePath());
+		}
+
+	}
+
+	/**
+	 * 检查是否已经存在图片了
+	 * 
+	 * @param tourismImg
+	 * @return
+	 */
+	private boolean checkSave(TourismImg tourismImg) {
+		List<TourismImg> t = dao.findList(tourismImg, false, "tourism");
+		if (t == null || t.size() <= 0) {
+			return false;
+
+		}
+		return true;
 	}
 
 	public void cover(TourismImg tourismImg) {
@@ -46,5 +89,66 @@ public class TourismImgService extends CrudService<TourismImgDao, TourismImg> {
 		// 1为封面
 		tourismImg.setCover("1");
 		update(tourismImg);
+	}
+
+	/**
+	 * 检查图片的宽高
+	 * 
+	 * @param type
+	 * @param file
+	 * @param result
+	 * @return
+	 */
+	private boolean checkImgSize(String type, File file, Result result) {
+		BufferedImage sourceImg = null;
+		int width = 0;
+		int height = 0;
+		boolean flag = false;
+		try {
+			FileInputStream inputStream = new FileInputStream(file);
+			sourceImg = ImageIO.read(inputStream);
+			inputStream.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		width = sourceImg.getWidth();
+		height = sourceImg.getHeight();
+		switch (type) {
+		case "0":
+			if (width == 640 && height == 225) {
+				flag = true;
+			} else {
+				result.setMessage("上传失败,请确保图片大小为640*225");
+			}
+			break;
+		case "1":
+			if (width == 320 && height == 220) {
+				flag = true;
+			} else {
+				result.setMessage("上传失败,请确保图片大小为320*220");
+			}
+			break;
+		case "2":
+			if (width == 600 && height == 250) {
+				flag = true;
+			} else {
+				result.setMessage("上传失败,请确保图片大小为600*250");
+			}
+			break;
+		case "3":
+			if (width == 200 && height == 200) {
+				flag = true;
+			} else {
+				result.setMessage("上传失败,请确保图片大小为200*200");
+			}
+			break;
+		default:
+			break;
+		}
+		if (!flag) {
+			result.setCode("500");
+		}
+
+		return flag;
 	}
 }

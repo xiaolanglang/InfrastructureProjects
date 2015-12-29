@@ -12,7 +12,10 @@
 			<column name="travel_route_id" length="32" />
 		</many-to-one>
 		<property name="url" type="java.lang.String">
-			<column name="url" length="100" />
+			<column name="url" length="255" />
+		</property>
+		<property name="localUrl" type="java.lang.String">
+			<column name="localUrl" length="255" />
 		</property>
 		<property name="name" type="java.lang.String">
 			<column name="name" length="200" />
@@ -22,6 +25,9 @@
 		</property>
 		<property name="cover" type="java.lang.String">
 			<column name="cover" length="1" />
+		</property>
+		<property name="type" type="java.lang.String">
+			<column name="type" length="1" />
 		</property>
 	</class>
 </hibernate-mapping>
