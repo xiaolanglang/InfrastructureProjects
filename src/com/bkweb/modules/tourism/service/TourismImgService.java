@@ -104,12 +104,18 @@ public class TourismImgService extends CrudService<TourismImgDao, TourismImg> {
 		int width = 0;
 		int height = 0;
 		boolean flag = false;
+		FileInputStream inputStream = null;
 		try {
-			FileInputStream inputStream = new FileInputStream(file);
+			inputStream = new FileInputStream(file);
 			sourceImg = ImageIO.read(inputStream);
-			inputStream.close();
 		} catch (IOException e) {
 			e.printStackTrace();
+		} finally {
+			try {
+				inputStream.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 		width = sourceImg.getWidth();
 		height = sourceImg.getHeight();

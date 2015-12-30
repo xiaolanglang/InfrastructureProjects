@@ -19,8 +19,6 @@ public class Tourism extends DataEntity<Tourism> {
 	private String themes;
 	private Double adultPrice;
 	private Double childrenPrice;
-	private Double adultOriginalPrice;
-	private Double childrenOriginalPrice;
 	private Double discount;
 	private Integer days;
 	private String subtitle;
@@ -106,22 +104,6 @@ public class Tourism extends DataEntity<Tourism> {
 
 	public void setChildrenPrice(Double childrenPrice) {
 		this.childrenPrice = childrenPrice;
-	}
-
-	public Double getAdultOriginalPrice() {
-		return this.adultOriginalPrice;
-	}
-
-	public void setAdultOriginalPrice(Double adultOriginalPrice) {
-		this.adultOriginalPrice = adultOriginalPrice;
-	}
-
-	public Double getChildrenOriginalPrice() {
-		return this.childrenOriginalPrice;
-	}
-
-	public void setChildrenOriginalPrice(Double childrenOriginalPrice) {
-		this.childrenOriginalPrice = childrenOriginalPrice;
 	}
 
 	public Double getDiscount() {

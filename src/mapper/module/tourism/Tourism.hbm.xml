@@ -47,16 +47,6 @@
 				<comment>儿童现价</comment>
 			</column>
 		</property>
-		<property name="adultOriginalPrice" type="java.lang.Double">
-			<column name="adult_original_price" precision="8">
-				<comment>成人原价</comment>
-			</column>
-		</property>
-		<property name="childrenOriginalPrice" type="java.lang.Double">
-			<column name="children_original_price" precision="8">
-				<comment>儿童原价</comment>
-			</column>
-		</property>
 		<property name="discount" type="java.lang.Double">
 			<column name="discount" precision="3">
 				<comment>折扣</comment>

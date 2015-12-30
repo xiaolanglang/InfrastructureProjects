@@ -161,8 +161,7 @@ public class CommonGlobal {
 	 * @return
 	 */
 	public static String getWebPath(HttpServletRequest request, String webApp) {
-		String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
-				+ webApp;
+		String basePath = request.getScheme() + "://" + getConfig("webIP") + ":" + request.getServerPort() + webApp;
 		return basePath;
 	}
 }
