@@ -32,7 +32,7 @@ public class ImageUtils {
 	 *            新图片的格式
 	 * @throws IOException
 	 */
-	public static void resizeImage(BufferedImage prevImage, OutputStream os, double percent, String format)
+	public static void scaling(BufferedImage prevImage, OutputStream os, double percent, String format)
 			throws IOException {
 		double width = prevImage.getWidth();
 		double height = prevImage.getHeight();
@@ -42,8 +42,71 @@ public class ImageUtils {
 		Graphics graphics = image.createGraphics();
 		graphics.drawImage(prevImage, 0, 0, newWidth, newHeight, null);
 		ImageIO.write(image, format, os);
-		os.flush();
-		os.close();
+		if (os != null) {
+			os.flush();
+			os.close();
+		}
+		if (image != null) {
+			image.flush();
+		}
+	}
+
+	/**
+	 * 缩小到最接近目标的宽高
+	 * 
+	 * @param srcPath
+	 *            源文件<br>
+	 *            例如C:\\Users\\Administrator\\Desktop\\img\\1.jpeg
+	 * @param targetPath
+	 *            生成文件绝对路径<br>
+	 *            例如C:\\Users\\Administrator\\Desktop\\img\\2.jpeg
+	 * @param targetWidth
+	 *            目标宽度
+	 * @param targetHeight
+	 *            目标高度
+	 */
+	public void scaling(String srcPath, String targetPath, double targetWidth, double targetHeight) {
+		FileInputStream fileInputStream = null;
+		FileOutputStream os = null;
+		BufferedImage image = null;
+
+		try {
+			fileInputStream = new FileInputStream(srcPath);
+			os = new FileOutputStream(targetPath);
+			image = ImageIO.read(fileInputStream);
+
+			int imgWidth = image.getWidth();
+			int imgHeight = image.getHeight();
+			double heightSize = targetHeight / imgHeight;
+			double widthSize = targetWidth / imgWidth;
+
+			int sufHeight = (int) (widthSize * imgHeight);
+			int sufWidth = (int) (heightSize * imgWidth);
+			if (sufHeight >= targetHeight) {
+				scaling(image, os, widthSize,
+						targetPath.substring(targetPath.lastIndexOf(".") + 1, targetPath.length()));
+			} else if (sufWidth >= targetWidth) {
+				scaling(image, os, heightSize,
+						targetPath.substring(targetPath.lastIndexOf(".") + 1, targetPath.length()));
+			}
+
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (os != null) {
+					os.flush();
+					os.close();
+				}
+				if (fileInputStream != null) {
+					fileInputStream.close();
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 	/**
@@ -80,7 +143,7 @@ public class ImageUtils {
 			 * (例如 "jpeg" 或 "tiff")等 。
 			 */
 			Iterator<ImageReader> it = ImageIO.getImageReadersByFormatName(srcpath.substring(
-					srcpath.lastIndexOf(".") - 1, srcpath.length()));
+					srcpath.lastIndexOf(".") + 1, srcpath.length()));
 
 			ImageReader reader = it.next();
 
@@ -135,104 +198,78 @@ public class ImageUtils {
 			BufferedImage bi = reader.read(0, param);
 
 			// 保存新图片
-			ImageIO.write(bi, subpath.substring(subpath.lastIndexOf(".") - 1, subpath.length()), new File(subpath));
+			ImageIO.write(bi, subpath.substring(subpath.lastIndexOf(".") + 1, subpath.length()), new File(subpath));
 		} finally {
-			if (is != null)
+			if (is != null) {
 				is.close();
-			if (iis != null)
+			}
+			if (iis != null) {
 				iis.close();
+			}
 		}
 
 	}
 
 	/**
-	 * 缩小到最接近目标的宽高
+	 * 剪切图片的中间部分
 	 * 
-	 * @param srcPath
-	 *            源文件<br>
-	 *            例如C:\\Users\\Administrator\\Desktop\\img\\1.jpeg
-	 * @param targetPath
-	 *            生成文件绝对路径<br>
-	 *            例如C:\\Users\\Administrator\\Desktop\\img\\2.jpeg
-	 * @param targetWidth
-	 *            目标宽度
-	 * @param targetHeight
-	 *            目标高度
+	 * @param filePath
+	 * @param newFilePath
+	 * @param width
+	 * @param height
 	 */
-	public void resizeImage(String srcPath, String targetPath, double targetWidth, double targetHeight) {
-		FileInputStream fileInputStream = null;
-		FileOutputStream os = null;
-		BufferedImage image = null;
-
-		try {
-			fileInputStream = new FileInputStream(srcPath);
-			os = new FileOutputStream(targetPath);
-			image = ImageIO.read(fileInputStream);
-
-			int imgWidth = image.getWidth();
-			int imgHeight = image.getHeight();
-			double heightSize = targetHeight / imgHeight;
-			double widthSize = targetWidth / imgWidth;
-
-			int sufHeight = (int) (widthSize * imgHeight);
-			int sufWidth = (int) (heightSize * imgWidth);
-			if (sufHeight >= targetHeight) {
-				resizeImage(image, os, widthSize,
-						targetPath.substring(targetPath.lastIndexOf(".") + 1, targetPath.length()));
-			} else if (sufWidth >= targetWidth) {
-				resizeImage(image, os, heightSize,
-						targetPath.substring(targetPath.lastIndexOf(".") + 1, targetPath.length()));
-			}
-
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				os.flush();
-				os.close();
-				fileInputStream.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-	}
-
-	@Test
-	public void test() {
-		String srcPath = "C:\\Users\\Administrator\\Desktop\\img\\20140616121356_4xeMr.jpeg";
-		String targetPath = "C:\\Users\\Administrator\\Desktop\\img\\1.png";
-		resizeImage(srcPath, targetPath, 640, 225);
-
-	}
-
-	@Test
-	public void cutCenter() {
-		String filePath = "C:\\Users\\Administrator\\Desktop\\img\\1.png";
-		String newFilePath = "C:\\Users\\Administrator\\Desktop\\img\\2.jpg";
+	public void cutCenter(String filePath, String newFilePath, int width, int height) {
+		// ===剪切点x坐标
+		int x = 0;
+		int y = 0;
 		BufferedImage image = null;
 		FileInputStream fileInputStream = null;
+
 		try {
 			fileInputStream = new FileInputStream(filePath);
 			image = ImageIO.read(fileInputStream);
+			int mWidth = image.getWidth();
+			int mHeight = image.getHeight();
+			x = (mWidth - width) / 2;
+			y = (mHeight - height) / 2;
 		} catch (FileNotFoundException e1) {
 			e1.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
+		} finally {
+			try {
+				if (image != null) {
+					image.flush();
+				}
+				if (fileInputStream != null) {
+					fileInputStream.close();
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 
-		// ===剪切点x坐标
-		int x = 0;
-		int y = 0;
-		// ===剪切点宽度
-		int width = 640;
-		int height = 225;
 		try {
 			cut(filePath, newFilePath, x, y, width, height);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+
+	}
+
+	@Test
+	public void testResize() {
+		String srcPath = "C:\\Users\\Administrator\\Desktop\\img\\20140616121356_4xeMr.jpeg";
+		String targetPath = "C:\\Users\\Administrator\\Desktop\\img\\1.png";
+		scaling(srcPath, targetPath, 640, 225);
+
+	}
+
+	@Test
+	public void testCutCenter() {
+		String srcPath = "C:\\Users\\Administrator\\Desktop\\img\\1.png";
+		String targetPath = "C:\\Users\\Administrator\\Desktop\\img\\2.png";
+		cutCenter(srcPath, targetPath, 640, 225);
 
 	}
 }
