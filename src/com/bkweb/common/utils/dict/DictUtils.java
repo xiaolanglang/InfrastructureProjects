@@ -1,4 +1,4 @@
-package com.bkweb.common.utils;
+package com.bkweb.common.utils.dict;
 
 import java.util.List;
 import java.util.Map;

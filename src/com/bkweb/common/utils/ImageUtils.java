@@ -65,7 +65,7 @@ public class ImageUtils {
 	 * @param targetHeight
 	 *            目标高度
 	 */
-	public void scaling(String srcPath, String targetPath, double targetWidth, double targetHeight) {
+	public static void scaling(String srcPath, String targetPath, double targetWidth, double targetHeight) {
 		FileInputStream fileInputStream = null;
 		FileOutputStream os = null;
 		BufferedImage image = null;
@@ -127,7 +127,7 @@ public class ImageUtils {
 	 *            裁剪高度
 	 * @throws IOException
 	 */
-	public void cut(String srcpath, String subpath, int x, int y, int width, int height) throws IOException {
+	public static void cut(String srcpath, String subpath, int x, int y, int width, int height) throws IOException {
 		FileInputStream is = null;
 		ImageInputStream iis = null;
 		try {
@@ -218,7 +218,7 @@ public class ImageUtils {
 	 * @param width
 	 * @param height
 	 */
-	public void cutCenter(String filePath, String newFilePath, int width, int height) {
+	public static void cutCenter(String filePath, String newFilePath, int width, int height) {
 		// ===剪切点x坐标
 		int x = 0;
 		int y = 0;
