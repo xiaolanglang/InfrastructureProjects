@@ -1,5 +1,16 @@
 package com.bkweb.modules.attraction.entity;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.DynamicInsert;
+
 import com.bkweb.common.entity.DataEntity;
 import com.bkweb.modules.position.entity.City;
 import com.bkweb.modules.position.entity.Country;
@@ -7,7 +18,10 @@ import com.bkweb.modules.position.entity.Country;
 /**
  * Attractions entity. @author MyEclipse Persistence Tools
  */
-
+@Entity
+@Table(name = "base_scenic_spots")
+@DynamicInsert(true)
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Attraction extends DataEntity<Attraction> {
 
 	/**
@@ -44,6 +58,8 @@ public class Attraction extends DataEntity<Attraction> {
 		this.title = title;
 	}
 
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "city_id")
 	public City getCity() {
 		return this.city;
 	}
@@ -52,6 +68,8 @@ public class Attraction extends DataEntity<Attraction> {
 		this.city = city;
 	}
 
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "country_id")
 	public Country getCountry() {
 		return this.country;
 	}
@@ -60,6 +78,7 @@ public class Attraction extends DataEntity<Attraction> {
 		this.country = country;
 	}
 
+	@Column(name = "name_zh", length = 10)
 	public String getName() {
 		return name;
 	}
@@ -68,6 +87,7 @@ public class Attraction extends DataEntity<Attraction> {
 		this.name = name;
 	}
 
+	@Column(name = "hide", length = 1)
 	public String getHide() {
 		return this.hide;
 	}
@@ -76,6 +96,7 @@ public class Attraction extends DataEntity<Attraction> {
 		this.hide = hide;
 	}
 
+	@Column(name = "for_people", length = 100)
 	public String getForPeople() {
 		return this.forPeople;
 	}
@@ -84,6 +105,7 @@ public class Attraction extends DataEntity<Attraction> {
 		this.forPeople = forPeople;
 	}
 
+	@Column(name = "type", length = 100)
 	public String getType() {
 		return this.type;
 	}
@@ -92,6 +114,7 @@ public class Attraction extends DataEntity<Attraction> {
 		this.type = type;
 	}
 
+	@Column(name = "place", length = 100)
 	public String getPlace() {
 		return place;
 	}
@@ -100,6 +123,7 @@ public class Attraction extends DataEntity<Attraction> {
 		this.place = place;
 	}
 
+	@Column(name = "imgUrl", length = 255)
 	public String getImgUrl() {
 		return this.imgUrl;
 	}
@@ -108,6 +132,7 @@ public class Attraction extends DataEntity<Attraction> {
 		this.imgUrl = imgUrl;
 	}
 
+	@Column(name = "title", length = 100)
 	public String getTitle() {
 		return this.title;
 	}

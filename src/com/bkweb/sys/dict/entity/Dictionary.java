@@ -1,5 +1,13 @@
 package com.bkweb.sys.dict.entity;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.DynamicInsert;
+
 import com.bkweb.common.entity.DataEntity;
 
 /**
@@ -8,6 +16,10 @@ import com.bkweb.common.entity.DataEntity;
  * @author administrator
  * @version 2013-05-15
  */
+@Entity
+@Table(name = "base_dicionary")
+@DynamicInsert(true)
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Dictionary extends DataEntity<Dictionary> {
 
 	private static final long serialVersionUID = 1L;
@@ -28,6 +40,7 @@ public class Dictionary extends DataEntity<Dictionary> {
 		this.label = label;
 	}
 
+	@Column(name = "value")
 	public String getValue() {
 		return value;
 	}
@@ -36,6 +49,7 @@ public class Dictionary extends DataEntity<Dictionary> {
 		this.value = value;
 	}
 
+	@Column(name = "label", length = 20)
 	public String getLabel() {
 		return label;
 	}
@@ -44,6 +58,7 @@ public class Dictionary extends DataEntity<Dictionary> {
 		this.label = label;
 	}
 
+	@Column(name = "type", length = 20)
 	public String getType() {
 		return type;
 	}
@@ -52,6 +67,7 @@ public class Dictionary extends DataEntity<Dictionary> {
 		this.type = type;
 	}
 
+	@Column(name = "description", length = 20)
 	public String getDescription() {
 		return description;
 	}

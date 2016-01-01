@@ -1,10 +1,24 @@
 package com.bkweb.modules.position.entity;
 
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.DynamicInsert;
+
 /**
  * Nation entity. @author MyEclipse Persistence Tools
  */
 
-public class Nation extends PositionEntity<Nation> implements java.io.Serializable {
+@Entity
+@Table(name = "base_nation")
+@DynamicInsert(true)
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+public class Nation extends PositionEntity<Nation> {
 
 	/**
 	 * 
@@ -13,6 +27,8 @@ public class Nation extends PositionEntity<Nation> implements java.io.Serializab
 
 	private Continent continent;
 
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "delta_id")
 	public Continent getContinent() {
 		return continent;
 	}

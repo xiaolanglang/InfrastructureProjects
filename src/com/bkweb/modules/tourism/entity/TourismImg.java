@@ -1,11 +1,26 @@
 package com.bkweb.modules.tourism.entity;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.DynamicInsert;
+
 import com.bkweb.common.entity.DataEntity;
 
 /**
  * TourismImg entity. @author MyEclipse Persistence Tools
  */
 
+@Entity
+@Table(name = "travel_route_img")
+@DynamicInsert(true)
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class TourismImg extends DataEntity<TourismImg> {
 
 	/**
@@ -34,6 +49,8 @@ public class TourismImg extends DataEntity<TourismImg> {
 
 	// Property accessors
 
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "travel_route_id")
 	public Tourism getTourism() {
 		return this.tourism;
 	}
@@ -42,6 +59,7 @@ public class TourismImg extends DataEntity<TourismImg> {
 		this.tourism = tourism;
 	}
 
+	@Column(name = "url")
 	public String getUrl() {
 		return this.url;
 	}
@@ -50,6 +68,7 @@ public class TourismImg extends DataEntity<TourismImg> {
 		this.url = url;
 	}
 
+	@Column(name = "name", length = 200)
 	public String getName() {
 		return name;
 	}
@@ -58,6 +77,7 @@ public class TourismImg extends DataEntity<TourismImg> {
 		this.name = name;
 	}
 
+	@Column(name = "size", precision = 8)
 	public Double getSize() {
 		return size;
 	}
@@ -66,6 +86,7 @@ public class TourismImg extends DataEntity<TourismImg> {
 		this.size = size;
 	}
 
+	@Column(name = "cover", length = 1)
 	public String getCover() {
 		return cover;
 	}
@@ -74,6 +95,7 @@ public class TourismImg extends DataEntity<TourismImg> {
 		this.cover = cover;
 	}
 
+	@Column(name = "type", length = 1)
 	public String getType() {
 		return type;
 	}
@@ -82,6 +104,7 @@ public class TourismImg extends DataEntity<TourismImg> {
 		this.type = type;
 	}
 
+	@Column(name = "localUrl")
 	public String getLocalUrl() {
 		return localUrl;
 	}

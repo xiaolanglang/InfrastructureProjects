@@ -1,7 +1,11 @@
 package com.bkweb.modules.position.entity;
 
+import javax.persistence.Column;
+import javax.persistence.MappedSuperclass;
+
 import com.bkweb.common.entity.DataEntity;
 
+@MappedSuperclass
 public class PositionEntity<E> extends DataEntity<E> {
 
 	/**
@@ -12,6 +16,7 @@ public class PositionEntity<E> extends DataEntity<E> {
 	protected String name;
 	protected String nameEn;
 
+	@Column(name = "name_zh", length = 15)
 	public String getName() {
 		return name;
 	}
@@ -20,6 +25,7 @@ public class PositionEntity<E> extends DataEntity<E> {
 		this.name = name;
 	}
 
+	@Column(name = "name_en", length = 20)
 	public String getNameEn() {
 		return nameEn;
 	}

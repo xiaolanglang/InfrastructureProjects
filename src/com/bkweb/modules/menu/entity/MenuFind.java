@@ -1,11 +1,23 @@
 package com.bkweb.modules.menu.entity;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.DynamicInsert;
+
 import com.bkweb.common.entity.DataEntity;
 
 /**
  * MenuFind entity. @author MyEclipse Persistence Tools
  */
 
+@Entity
+@Table(name = "menu_find")
+@DynamicInsert(true)
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class MenuFind extends DataEntity<MenuFind> {
 
 	// Fields
@@ -14,7 +26,6 @@ public class MenuFind extends DataEntity<MenuFind> {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private String id;
 	private String title;
 	private String subTitle;
 	private String image;
@@ -37,14 +48,7 @@ public class MenuFind extends DataEntity<MenuFind> {
 
 	// Property accessors
 
-	public String getId() {
-		return this.id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
-
+	@Column(name = "title", length = 20)
 	public String getTitle() {
 		return title;
 	}
@@ -53,6 +57,7 @@ public class MenuFind extends DataEntity<MenuFind> {
 		this.title = title;
 	}
 
+	@Column(name = "subtitle", length = 20)
 	public String getSubTitle() {
 		return subTitle;
 	}
@@ -61,6 +66,7 @@ public class MenuFind extends DataEntity<MenuFind> {
 		this.subTitle = subTitle;
 	}
 
+	@Column(name = "image")
 	public String getImage() {
 		return this.image;
 	}
@@ -69,6 +75,7 @@ public class MenuFind extends DataEntity<MenuFind> {
 		this.image = image;
 	}
 
+	@Column(name = "keyword", length = 50)
 	public String getKeyword() {
 		return keyword;
 	}
@@ -77,6 +84,7 @@ public class MenuFind extends DataEntity<MenuFind> {
 		this.keyword = keyword;
 	}
 
+	@Column(name = "hide", length = 1)
 	public String getHide() {
 		return hide;
 	}

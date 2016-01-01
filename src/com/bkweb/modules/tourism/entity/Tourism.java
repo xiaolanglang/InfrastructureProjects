@@ -1,11 +1,24 @@
 package com.bkweb.modules.tourism.entity;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.DynamicInsert;
+
 import com.bkweb.common.entity.DataEntity;
 
 /**
  * Tourism entity. @author MyEclipse Persistence Tools
  */
 
+@Entity
+@Table(name = "travel_route")
+@DynamicInsert(true)
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Tourism extends DataEntity<Tourism> {
 
 	/**
@@ -34,6 +47,7 @@ public class Tourism extends DataEntity<Tourism> {
 	public Tourism() {
 	}
 
+	@Column(name = "theme", length = 100)
 	public String getThemes() {
 		return themes;
 	}
@@ -42,6 +56,7 @@ public class Tourism extends DataEntity<Tourism> {
 		this.themes = themes;
 	}
 
+	@Column(name = "status", length = 100)
 	public String getStatuses() {
 		return statuses;
 	}
@@ -50,6 +65,7 @@ public class Tourism extends DataEntity<Tourism> {
 		this.statuses = statuses;
 	}
 
+	@Transient
 	public String[] getStatus() {
 		return status;
 	}
@@ -58,6 +74,7 @@ public class Tourism extends DataEntity<Tourism> {
 		this.status = status;
 	}
 
+	@Column(name = "title", length = 100)
 	public String getTitle() {
 		return this.title;
 	}
@@ -66,6 +83,7 @@ public class Tourism extends DataEntity<Tourism> {
 		this.title = title;
 	}
 
+	@Column(name = "hide", length = 1)
 	public String getHide() {
 		return this.hide;
 	}
@@ -74,6 +92,7 @@ public class Tourism extends DataEntity<Tourism> {
 		this.hide = hide;
 	}
 
+	@Column(name = "travel_type", length = 32)
 	public String getType() {
 		return type;
 	}
@@ -82,6 +101,7 @@ public class Tourism extends DataEntity<Tourism> {
 		this.type = type;
 	}
 
+	@Transient
 	public String[] getTheme() {
 		return this.theme;
 	}
@@ -90,6 +110,7 @@ public class Tourism extends DataEntity<Tourism> {
 		this.theme = theme;
 	}
 
+	@Column(name = "adult_price", precision = 8)
 	public Double getAdultPrice() {
 		return this.adultPrice;
 	}
@@ -98,6 +119,7 @@ public class Tourism extends DataEntity<Tourism> {
 		this.adultPrice = adultPrice;
 	}
 
+	@Column(name = "children_price", precision = 8)
 	public Double getChildrenPrice() {
 		return this.childrenPrice;
 	}
@@ -106,6 +128,7 @@ public class Tourism extends DataEntity<Tourism> {
 		this.childrenPrice = childrenPrice;
 	}
 
+	@Column(name = "discount", precision = 5, scale = 1)
 	public Double getDiscount() {
 		return this.discount;
 	}
@@ -114,6 +137,7 @@ public class Tourism extends DataEntity<Tourism> {
 		this.discount = discount;
 	}
 
+	@Column(name = "days")
 	public Integer getDays() {
 		return this.days;
 	}
@@ -122,6 +146,7 @@ public class Tourism extends DataEntity<Tourism> {
 		this.days = days;
 	}
 
+	@Column(name = "subtitle", length = 100)
 	public String getSubtitle() {
 		return subtitle;
 	}
@@ -130,6 +155,7 @@ public class Tourism extends DataEntity<Tourism> {
 		this.subtitle = subtitle;
 	}
 
+	@Transient
 	public String[] getStartPlace() {
 		return startPlace;
 	}
@@ -138,6 +164,7 @@ public class Tourism extends DataEntity<Tourism> {
 		this.startPlace = startPlace;
 	}
 
+	@Column(name = "place_of_start", length = 320)
 	public String getStartPlaces() {
 		return startPlaces;
 	}
@@ -146,6 +173,7 @@ public class Tourism extends DataEntity<Tourism> {
 		this.startPlaces = startPlaces;
 	}
 
+	@Column(name = "recommend", length = 500)
 	public String getRecommend() {
 		return this.recommend;
 	}
