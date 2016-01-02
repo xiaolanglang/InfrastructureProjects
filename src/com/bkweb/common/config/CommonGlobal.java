@@ -152,7 +152,7 @@ public class CommonGlobal {
 	}
 
 	/**
-	 * 结果获得localhost:8080/服务名称
+	 * 结果获得&nbsp;&nbsp;&nbsp;IP地址:8080/服务名称
 	 * 
 	 * @param request
 	 * @param webApp

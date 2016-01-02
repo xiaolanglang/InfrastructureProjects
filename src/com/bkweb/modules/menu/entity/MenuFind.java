@@ -31,6 +31,7 @@ public class MenuFind extends DataEntity<MenuFind> {
 	private String image;
 	private String keyword;
 	private String hide;
+	private String localUrl;
 
 	// Constructors
 
@@ -91,6 +92,15 @@ public class MenuFind extends DataEntity<MenuFind> {
 
 	public void setHide(String hide) {
 		this.hide = hide;
+	}
+
+	@Column(name = "localUrl", length = 255)
+	public String getLocalUrl() {
+		return localUrl;
+	}
+
+	public void setLocalUrl(String localUrl) {
+		this.localUrl = localUrl;
 	}
 
 }

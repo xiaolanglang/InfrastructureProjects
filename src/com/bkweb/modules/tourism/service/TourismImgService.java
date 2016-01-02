@@ -4,8 +4,6 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 import javax.imageio.ImageIO;
@@ -14,7 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.bkweb.common.config.CommonGlobal;
 import com.bkweb.common.service.impl.CrudService;
 import com.bkweb.common.utils.FileUploadUtils;
 import com.bkweb.common.utils.FileUtils;
@@ -42,20 +39,12 @@ public class TourismImgService extends CrudService<TourismImgDao, TourismImg> {
 			return;
 		}
 
-		String fileName = IdUtils.uuid();
-		SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
-		String date = format.format(new Date());
-
-		String url = CommonGlobal.getConfig("file.imgLocalPath") + "/" + date;
-		String localUrl = FileUploadUtils.getTomcatWebAppsPath(CommonGlobal.getConfig("fileWebApp")) + url;
-
-		File file = FileUploadUtils.upload(request, localUrl, fileName);
+		File file = FileUploadUtils.upload(request, FileUploadUtils.getDefaultImgLocalUrl(), IdUtils.uuid());
 
 		boolean flag = checkImgSize(tourismImg.getType(), file, result);
 		if (flag) {
 			String name = file.getName();
-			tourismImg
-					.setUrl(CommonGlobal.getWebPath(request, CommonGlobal.getConfig("fileWebApp")) + url + "/" + name);
+			tourismImg.setUrl(FileUploadUtils.getDefaultImgUrl(request, name));
 			tourismImg.setLocalUrl(file.getAbsolutePath());
 			tourismImg.setName(name.substring(0, name.lastIndexOf(".")));
 			tourismImg.setSize(((double) file.length()) / 1200 / 1200);

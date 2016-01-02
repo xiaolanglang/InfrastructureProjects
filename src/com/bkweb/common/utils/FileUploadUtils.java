@@ -6,6 +6,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Iterator;
 
 import javax.servlet.ServletContext;
@@ -30,7 +32,9 @@ public class FileUploadUtils {
 	 * 
 	 * @param request
 	 * @param localPath
-	 *            文件的绝对路径，但是不带后缀名，例如：D:/KaiFaRuanJian/wenjian/
+	 *            文件夹的绝对路径，但是不带后缀名，例如：D:/KaiFaRuanJian/wenjian/
+	 * @param newFileName
+	 *            文件名称
 	 * @return
 	 */
 	public static File upload(HttpServletRequest request, String localPath, String newFileName) {
@@ -229,6 +233,38 @@ public class FileUploadUtils {
 	 */
 	public static String getTomcatWebAppsPath(String webApp) {
 		return getPath("").replace(CommonGlobal.getConfig("webApp"), webApp);
+	}
+
+	/**
+	 * 获得默认图片保存路径(这个路径是磁盘中的绝对路径，并且这是个文件夹)
+	 * 
+	 * @return
+	 */
+	public static String getDefaultImgLocalUrl() {
+		SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
+		String date = format.format(new Date());
+
+		String url = CommonGlobal.getConfig("file.imgLocalPath") + "/" + date;
+		String localUrl = FileUploadUtils.getTomcatWebAppsPath(CommonGlobal.getConfig("fileWebApp")) + url;
+
+		return localUrl;
+	}
+
+	/**
+	 * 获得图片文件的访问路径(这个路径是从浏览器访问图片的路径)
+	 * 
+	 * @param request
+	 * @param fileName
+	 *            文件名称,这个文件名称是带后缀名称
+	 * @return
+	 */
+	public static String getDefaultImgUrl(HttpServletRequest request, String fileName) {
+		SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
+		String date = format.format(new Date());
+
+		String url = CommonGlobal.getConfig("file.imgLocalPath") + "/" + date;
+
+		return CommonGlobal.getWebPath(request, CommonGlobal.getConfig("fileWebApp")) + url + "/" + fileName;
 	}
 
 }

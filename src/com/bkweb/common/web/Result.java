@@ -4,6 +4,15 @@ public class Result {
 	private String code;
 	private String message;
 
+	public Result() {
+
+	}
+
+	public Result(String code, String message) {
+		this.code = code;
+		this.message = message;
+	}
+
 	public String getCode() {
 		return code;
 	}
