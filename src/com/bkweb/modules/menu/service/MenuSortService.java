@@ -33,9 +33,11 @@ public class MenuSortService extends CrudService<MenuSortDao, MenuSort> {
 				FileUtils.deleteFile(file.getAbsolutePath());
 				return false;
 			}
-			String url = dao.get(menusort).getImageLocal();
-			if (!StringUtils.isEmpty(url)) {
-				FileUtils.deleteFile(url);
+			if (!StringUtils.isEmpty(menusort.getId())) {
+				String url = dao.get(menusort).getImageLocal();
+				if (!StringUtils.isEmpty(url)) {
+					FileUtils.deleteFile(url);
+				}
 			}
 			menusort.setImageUrl(FileUploadUtils.getDefaultImgUrl(request, file.getName()));
 			menusort.setImageLocal(file.getAbsolutePath());

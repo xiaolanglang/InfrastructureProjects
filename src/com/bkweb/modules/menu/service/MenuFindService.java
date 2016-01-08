@@ -28,9 +28,11 @@ public class MenuFindService extends CrudService<MenuFindDao, MenuFind> {
 				FileUtils.deleteFile(file.getAbsolutePath());
 				return false;
 			}
-			String url = dao.get(menuFind).getLocalUrl();
-			if (!StringUtils.isEmpty(url)) {
-				FileUtils.deleteFile(url);
+			if (!StringUtils.isEmpty(menuFind.getId())) {
+				String url = dao.get(menuFind).getLocalUrl();
+				if (!StringUtils.isEmpty(url)) {
+					FileUtils.deleteFile(url);
+				}
 			}
 			menuFind.setImage(FileUploadUtils.getDefaultImgUrl(request, file.getName()));
 			menuFind.setLocalUrl(file.getAbsolutePath());

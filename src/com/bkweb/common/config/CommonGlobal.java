@@ -142,16 +142,6 @@ public class CommonGlobal {
 	}
 
 	/**
-	 * 结果获得localhost:8080/bkweb
-	 * 
-	 * @param request
-	 * @return
-	 */
-	public static String getWebPath(HttpServletRequest request) {
-		return getWebPath(request, request.getContextPath());
-	}
-
-	/**
 	 * 结果获得&nbsp;&nbsp;&nbsp;IP地址/服务名称
 	 * 
 	 * @param request

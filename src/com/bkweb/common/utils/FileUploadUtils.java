@@ -244,7 +244,8 @@ public class FileUploadUtils {
 		SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
 		String date = format.format(new Date());
 
-		String url = CommonGlobal.getConfig("file.imgLocalPath") + CommonGlobal.getConfig("fileWebApp") + "/" + date;
+		String url = CommonGlobal.getConfig("file.imgLocalPath") + CommonGlobal.getConfig("fileWebApp") + "/img/"
+				+ date;
 
 		return url;
 	}
@@ -261,9 +262,7 @@ public class FileUploadUtils {
 		SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
 		String date = format.format(new Date());
 
-		String url = CommonGlobal.getConfig("file.imgLocalPath") + CommonGlobal.getConfig("fileWebApp") + "/" + date;
-
-		return CommonGlobal.getWebPath(request, CommonGlobal.getConfig("fileWebApp")) + url + "/" + fileName;
+		return CommonGlobal.getWebPath(request, CommonGlobal.getConfig("fileWebApp")) + "/img/" + date + "/" + fileName;
 	}
 
 }
