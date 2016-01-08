@@ -152,7 +152,7 @@ public class CommonGlobal {
 	}
 
 	/**
-	 * 结果获得&nbsp;&nbsp;&nbsp;IP地址:8080/服务名称
+	 * 结果获得&nbsp;&nbsp;&nbsp;IP地址/服务名称
 	 * 
 	 * @param request
 	 * @param webApp
@@ -161,7 +161,9 @@ public class CommonGlobal {
 	 * @return
 	 */
 	public static String getWebPath(HttpServletRequest request, String webApp) {
-		String basePath = request.getScheme() + "://" + getConfig("webIP") + ":" + request.getServerPort() + webApp;
+		// String basePath = request.getScheme() + "://" + getConfig("webIP") +
+		// ":" + request.getServerPort() + webApp;//这是带端口号的
+		String basePath = request.getScheme() + "://" + getConfig("webIP") + webApp;
 		return basePath;
 	}
 }

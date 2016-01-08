@@ -8,6 +8,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Iterator;
 
@@ -255,6 +256,33 @@ public class ImageUtils {
 			e.printStackTrace();
 		}
 
+	}
+
+	public static boolean checkImage(File file, int width, int height) {
+		InputStream inputStream = null;
+		boolean flag = false;
+		try {
+			inputStream = new FileInputStream(file);
+			BufferedImage sourceImg = ImageIO.read(inputStream);
+			int imgWidth = sourceImg.getWidth();
+			int mgHeight = sourceImg.getHeight();
+			if (imgWidth == width && mgHeight == height) {
+				flag = true;
+			}
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			if (inputStream != null) {
+				try {
+					inputStream.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return flag;
 	}
 
 	@Test
