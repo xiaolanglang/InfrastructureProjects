@@ -33,6 +33,7 @@ public class MenuSort extends DataEntity<MenuSort> {
 	private String nameEn;
 	private String imageUrl;
 	private String imageLocal;
+	private String keyWord;
 
 	// Constructors
 
@@ -97,6 +98,15 @@ public class MenuSort extends DataEntity<MenuSort> {
 
 	public void setImageLocal(String imageLocal) {
 		this.imageLocal = imageLocal;
+	}
+
+	@Column(name = "key_word")
+	public String getKeyWord() {
+		return keyWord;
+	}
+
+	public void setKeyWord(String keyWord) {
+		this.keyWord = keyWord;
 	}
 
 }
