@@ -53,7 +53,6 @@ public abstract class CrudDao<T extends DataEntity<T>> implements ICrudDao<T> {
 	}
 
 	protected Criteria getCriteria(Class<?> clz) {
-		Session a = getSession();
 		return getSession().createCriteria(clz);
 	}
 

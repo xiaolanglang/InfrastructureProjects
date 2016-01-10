@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Component;
 
@@ -17,7 +18,8 @@ public class MenuSortDao extends CrudDao<MenuSort> {
 		Criteria criteria = getCriteria(MenuSort.class);
 		Criterion c = Restrictions.eqOrIsNull("parent", null);
 		criteria.add(c);
-		@SuppressWarnings("unused")
+		criteria.addOrder(Order.asc("ord"));
+		@SuppressWarnings("unchecked")
 		List<MenuSort> list = criteria.list();
 		return list;
 	}
