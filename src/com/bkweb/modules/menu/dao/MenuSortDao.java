@@ -23,4 +23,12 @@ public class MenuSortDao extends CrudDao<MenuSort> {
 		List<MenuSort> list = criteria.list();
 		return list;
 	}
+
+	public List<MenuSort> findAllSortList() {
+		Criteria criteria = getCriteria(MenuSort.class);
+		criteria.add(Restrictions.neOrIsNotNull("parent", null));
+		@SuppressWarnings("unchecked")
+		List<MenuSort> list = criteria.list();
+		return list;
+	}
 }

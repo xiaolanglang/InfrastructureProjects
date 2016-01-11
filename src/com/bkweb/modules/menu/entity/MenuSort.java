@@ -34,7 +34,7 @@ public class MenuSort extends DataEntity<MenuSort> {
 	private String imageUrl;
 	private String imageLocal;
 	private String keyWord;
-	private int ord;
+	private Integer ord;
 
 	// Constructors
 
@@ -111,11 +111,11 @@ public class MenuSort extends DataEntity<MenuSort> {
 	}
 
 	@Column(name = "ord")
-	public int getOrd() {
+	public Integer getOrd() {
 		return ord;
 	}
 
-	public void setOrd(int ord) {
+	public void setOrd(Integer ord) {
 		this.ord = ord;
 	}
 

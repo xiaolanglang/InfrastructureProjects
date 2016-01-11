@@ -46,4 +46,8 @@ public class MenuSortService extends CrudService<MenuSortDao, MenuSort> {
 		return true;
 	}
 
+	public List<MenuSort> findAllSortList() {
+		return dao.findAllSortList();
+	}
+
 }
