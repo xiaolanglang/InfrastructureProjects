@@ -1,7 +1,6 @@
 package com.bkweb.common.dao.impl;
 
 import java.lang.reflect.Field;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -226,40 +225,6 @@ public abstract class CrudDao<T extends DataEntity<T>> implements ICrudDao<T> {
 	}
 
 	/**
-	 * 创建查询标准
-	 * 
-	 * @param criteria
-	 * @param list
-	 *            list中的对象需要实现指定接口
-	 * @param batch
-	 *            当递归第一次运行的时候，这是true，其余的时候都为false<br>
-	 *            进行联表查询的创建，这里必须设置为true，如果不设置为true，可能会漏掉需要连接的表
-	 * @param batchTable
-	 */
-	@Deprecated
-	protected void createCriterionDeprecated(Criteria criteria, List<IEnableEntity> list, boolean batch,
-			String... batchTable) {
-
-		if (batch && batchTable.length > 0) {
-			for (int i = 0, l = batchTable.length; i < l; i++) {
-				// 创建联表查询，使用join方式
-				criteria.createCriteria(batchTable[i], JoinType.LEFT_OUTER_JOIN);
-			}
-		}
-
-		// 创建集合，用于收集遍历过程中查询到的对象
-		List<IEnableEntity> entities = new ArrayList<IEnableEntity>();
-		for (IEnableEntity entity : list) {// 遍历收集到的实体对象
-			makeCriterioDeprecated(criteria, entity, entities, batch, batchTable);
-		}
-		if (entities.size() > 0) {
-			// 使用递归，对收集到的实体集合进行进一步的遍历，创建查询标准
-			createCriterionDeprecated(criteria, entities, false, batchTable);
-		}
-
-	}
-
-	/**
 	 * 获得一个对象中的所有属性，包括父类
 	 * 
 	 * @param criteria
@@ -293,41 +258,6 @@ public abstract class CrudDao<T extends DataEntity<T>> implements ICrudDao<T> {
 		for (Class<?> clazz = iEntity.getClass(); clazz != Object.class; clazz = clazz.getSuperclass()) {
 			Field[] fields = clazz.getDeclaredFields();
 			getSearchField(criteria, (IEnableEntity) iEntity, fields);
-		}
-
-	}
-
-	/**
-	 * 获得一个对象中的所有属性，包括父类
-	 * 
-	 * @param criteria
-	 * @param entity
-	 *            待遍历对象
-	 * @param list
-	 *            用于收集对象
-	 * @param batchTable
-	 */
-	@Deprecated
-	private void makeCriterioDeprecated(Criteria criteria, IEnableEntity entity, List<IEnableEntity> list,
-			boolean batchFlag, String... batchTable) {
-
-		boolean flag = false;
-		String prefix = null;
-		for (String batch : batchTable) {
-			if (entity.getClass().getSimpleName().toLowerCase().equals(batch.toLowerCase())) {
-				criteria = criteria.createCriteria(batch, JoinType.LEFT_OUTER_JOIN);
-				flag = true;
-				prefix = batch;
-				break;
-			}
-		}
-		// 第一次运行到这里的时候batchFlag为true，其余的时候都为false
-		// flag为true表示找到了要遍历的对象，否则就是没找到
-		if (flag || batchFlag) {
-			for (Class<?> clazz = entity.getClass(); clazz != Object.class; clazz = clazz.getSuperclass()) {
-				Field[] fields = clazz.getDeclaredFields();
-				traversalfieldsDeprecated(criteria, entity, fields, list, prefix);
-			}
 		}
 
 	}
@@ -406,38 +336,4 @@ public abstract class CrudDao<T extends DataEntity<T>> implements ICrudDao<T> {
 		}
 	}
 
-	/**
-	 * 对对象属性进行遍历，如果属性值不为空，那就加入搜索条件中，如果对象属性是一个实现了IEnableEntity接口的实体对象，就把该对象放到集合中
-	 * 
-	 * @param criteria
-	 * @param entity
-	 * @param fields
-	 * @param list
-	 * @param prefix
-	 */
-	@Deprecated
-	private void traversalfieldsDeprecated(Criteria criteria, IEnableEntity entity, Field[] fields,
-			List<IEnableEntity> list, String prefix) {
-		for (Field field : fields) {
-			try {
-				String fieldName = field.getName();
-				Object fieldValue = Reflections.invokeGetter(entity, fieldName);
-				if (fieldValue == null) {
-					continue;
-				}
-				if (fieldValue instanceof IEnableEntity) {
-					list.add((IEnableEntity) fieldValue);
-					continue;
-				}
-
-				if (!StringUtils.isEmpty(String.valueOf(fieldValue))) {
-					System.out.println(entity.getClass().getSimpleName() + ":" + fieldName + ">>>>>>" + fieldValue);
-					Criterion c = Restrictions.eq(fieldName, fieldValue);
-					criteria.add(c);
-				}
-			} catch (IllegalArgumentException e) {
-				// 允许找不到get方法
-			}
-		}
-	}
 }

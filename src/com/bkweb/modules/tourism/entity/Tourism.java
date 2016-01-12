@@ -47,6 +47,10 @@ public class Tourism extends DataEntity<Tourism> {
 	public Tourism() {
 	}
 
+	public Tourism(String id) {
+		this.id = id;
+	}
+
 	@Column(name = "theme", length = 100)
 	public String getThemes() {
 		return themes;
