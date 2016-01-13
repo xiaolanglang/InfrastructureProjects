@@ -160,7 +160,7 @@ public class Encodes {
 	 */
 	public static String getMD5Password(String username, String password) {
 		password = username + password;
-		byte[] pd = Digests.md5(password.getBytes(), 1);
+		byte[] pd = Digests.md5(password.getBytes(), HASH_INTERATIONS);
 		return Encodes.encodeHex(pd);
 	}
 }

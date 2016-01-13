@@ -64,6 +64,10 @@ public class User extends DataEntity<User> {
 
 	// Property accessors
 
+	public User(Account account) {
+		this.account = account;
+	}
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "accountId")
 	public Account getAccount() {
