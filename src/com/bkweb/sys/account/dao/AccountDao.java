@@ -22,6 +22,7 @@ public class AccountDao extends CrudDao<Account> {
 		Criteria criteria = getCriteria(Account.class);
 		criteria.add(Restrictions.eq("username", userName));
 		criteria.add(Restrictions.eq("password", passWord));
+		criteria.setCacheable(false);
 		@SuppressWarnings("unchecked")
 		List<Account> list = criteria.list();
 		if (list != null && list.size() > 0) {

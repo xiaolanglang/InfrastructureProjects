@@ -21,7 +21,7 @@ public class UsernamePasswordToken extends org.apache.shiro.authc.UsernamePasswo
 
 	public UsernamePasswordToken(String username, String password) {
 		super(username, password);
-		this.mobileLogin = false;
+		this.mobileLogin = true;
 	}
 
 	public UsernamePasswordToken(String username, char[] password, boolean rememberMe, String host, String captcha,

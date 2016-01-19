@@ -1,7 +1,5 @@
 package com.bkweb.sys.user.entity;
 
-import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -34,7 +32,6 @@ public class User extends DataEntity<User> {
 	private String name;
 	private String sex;
 	private Integer age;
-	private Date birthday;
 	private String card;
 
 	// Constructors
@@ -44,21 +41,19 @@ public class User extends DataEntity<User> {
 	}
 
 	/** minimal constructor */
-	public User(String name, String sex, Integer age, Date birthday, String card) {
+	public User(String name, String sex, Integer age, String card) {
 		this.name = name;
 		this.sex = sex;
 		this.age = age;
-		this.birthday = birthday;
 		this.card = card;
 	}
 
 	/** full constructor */
-	public User(Account account, String name, String sex, Integer age, Date birthday, String card) {
+	public User(Account account, String name, String sex, Integer age, String card) {
 		this.account = account;
 		this.name = name;
 		this.sex = sex;
 		this.age = age;
-		this.birthday = birthday;
 		this.card = card;
 	}
 
@@ -103,15 +98,6 @@ public class User extends DataEntity<User> {
 
 	public void setAge(Integer age) {
 		this.age = age;
-	}
-
-	@Column(name = "birthday", nullable = false, length = 20)
-	public Date getBirthday() {
-		return this.birthday;
-	}
-
-	public void setBirthday(Date birthday) {
-		this.birthday = birthday;
 	}
 
 	@Column(name = "card", nullable = false, length = 20)
