@@ -9,12 +9,12 @@ import org.springframework.transaction.annotation.Transactional;
 import com.bkweb.common.security.shiro.session.SessionDAO;
 import com.bkweb.common.service.BaseService;
 import com.bkweb.common.util.AccountUtils;
-import com.bkweb.sys.account.dao.AccountDao;
+import com.bkweb.sys.account.dao.CAccountDao;
 import com.bkweb.sys.account.entity.Account;
-import com.bkweb.sys.authority.dao.AccountRoleDao;
-import com.bkweb.sys.authority.dao.PermissionsDao;
-import com.bkweb.sys.authority.dao.RoleDao;
-import com.bkweb.sys.authority.dao.RolePermissionsDao;
+import com.bkweb.sys.authority.dao.CAccountRoleDao;
+import com.bkweb.sys.authority.dao.CPermissionsDao;
+import com.bkweb.sys.authority.dao.CRoleDao;
+import com.bkweb.sys.authority.dao.CRolePermissionsDao;
 import com.bkweb.sys.authority.entity.Permissions;
 import com.bkweb.sys.authority.entity.Role;
 import com.bkweb.sys.security.SystemAuthorizingRealm;
@@ -30,15 +30,15 @@ import com.bkweb.sys.security.SystemAuthorizingRealm;
 public class SystemService extends BaseService {
 
 	@Autowired
-	private AccountDao accountDao;
+	private CAccountDao accountDao;
 	@Autowired
-	private RoleDao roleDao;
+	private CRoleDao roleDao;
 	@Autowired
-	private RolePermissionsDao rolePerDao;
+	private CRolePermissionsDao rolePerDao;
 	@Autowired
-	private AccountRoleDao accountRoleDao;
+	private CAccountRoleDao accountRoleDao;
 	@Autowired
-	private PermissionsDao permissionsDao;
+	private CPermissionsDao permissionsDao;
 	@Autowired
 	private SessionDAO sessionDao;
 	@Autowired

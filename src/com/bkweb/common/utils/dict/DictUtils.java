@@ -5,7 +5,7 @@ import java.util.Map;
 
 import com.bkweb.common.utils.SpringContextHolder;
 import com.bkweb.common.utils.StringUtils;
-import com.bkweb.sys.dict.dao.BkDictionaryDao;
+import com.bkweb.sys.dict.dao.CDictionaryDao;
 import com.bkweb.sys.dict.entity.Dictionary;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
@@ -18,7 +18,7 @@ import com.google.common.collect.Maps;
  */
 public class DictUtils {
 
-	private static BkDictionaryDao dictDao = SpringContextHolder.getBean(BkDictionaryDao.class);
+	private static CDictionaryDao dictDao = SpringContextHolder.getBean(CDictionaryDao.class);
 	private static Map<String, List<Dictionary>> dictMap = null;
 	private static String defaultValue = "无";
 
