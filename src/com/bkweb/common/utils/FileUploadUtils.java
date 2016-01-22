@@ -225,17 +225,6 @@ public class FileUploadUtils {
 	}
 
 	/**
-	 * 例子：输出的文件路径：D:\KaiFaRuanJian\apache-tomcat-6.0.41\webapps\项目名称
-	 * 
-	 * @param webApp
-	 *            项目名称
-	 * @return
-	 */
-	public static String getTomcatWebAppsPath(String webApp) {
-		return getPath("").replace(CommonGlobal.getConfig("webApp"), webApp);
-	}
-
-	/**
 	 * 获得默认图片保存路径(这个路径是磁盘中的绝对路径，并且这是个文件夹)
 	 * 
 	 * @return
@@ -244,8 +233,7 @@ public class FileUploadUtils {
 		SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
 		String date = format.format(new Date());
 
-		String url = CommonGlobal.getConfig("file.imgLocalPath") + CommonGlobal.getConfig("fileWebApp") + "/img/"
-				+ date;
+		String url = CommonGlobal.getConfig("web.staticFile") + "/img/" + date;
 
 		return url;
 	}
@@ -262,7 +250,7 @@ public class FileUploadUtils {
 		SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
 		String date = format.format(new Date());
 
-		return CommonGlobal.getWebPath(request, CommonGlobal.getConfig("fileWebApp")) + "/img/" + date + "/" + fileName;
+		return CommonGlobal.getImageWebPath(request) + "/img/" + date + "/" + fileName;
 	}
 
 }

@@ -150,10 +150,8 @@ public class CommonGlobal {
 	 * 
 	 * @return
 	 */
-	public static String getWebPath(HttpServletRequest request, String webApp) {
-		// String basePath = request.getScheme() + "://" + getConfig("webIP") +
-		// ":" + request.getServerPort() + webApp;//这是带端口号的
-		String basePath = request.getScheme() + "://" + getConfig("webIP") + webApp;
+	public static String getImageWebPath(HttpServletRequest request) {
+		String basePath = request.getScheme() + "://" + getConfig("web.imageIP");
 		return basePath;
 	}
 }
