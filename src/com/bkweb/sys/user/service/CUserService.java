@@ -9,6 +9,6 @@ import com.bkweb.sys.user.entity.User;
 
 @Service
 @Transactional
-public class UserService extends CrudService<UserDao, User> {
+public class CUserService extends CrudService<UserDao, User> {
 
 }
