@@ -258,6 +258,14 @@ public class ImageUtils {
 
 	}
 
+	/**
+	 * 检查图片大小
+	 * 
+	 * @param file
+	 * @param width
+	 * @param height
+	 * @return 检查通过返回true,不通过返回false
+	 */
 	public static boolean checkImage(File file, int width, int height) {
 		InputStream inputStream = null;
 		boolean flag = false;
