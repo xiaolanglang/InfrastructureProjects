@@ -41,6 +41,8 @@ public class GzipFilter implements Filter {
 
 		HttpServletRequest req = (HttpServletRequest) request;
 
+		System.out.println("url>>>>>>>>>>>>>>>" + req.getRequestURI());
+
 		if (isGZipEncoding(req)) {
 			HttpServletResponse resp = (HttpServletResponse) response;
 
