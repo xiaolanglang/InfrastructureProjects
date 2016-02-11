@@ -1,6 +1,3 @@
-/**
- * Copyright (c) 2005-2012 springside.org.cn
- */
 package com.bkweb.common.security;
 
 import java.io.IOException;
@@ -33,10 +30,11 @@ public class Digests {
 	public static byte[] md5(byte[] input) {
 		return digest(input, MD5, null, 1);
 	}
+
 	public static byte[] md5(byte[] input, int iterations) {
 		return digest(input, MD5, null, iterations);
 	}
-	
+
 	/**
 	 * 对输入字符串进行sha1散列.
 	 */
@@ -78,7 +76,8 @@ public class Digests {
 	/**
 	 * 生成随机的Byte[]作为salt.
 	 * 
-	 * @param numBytes byte数组的大小
+	 * @param numBytes
+	 *            byte数组的大小
 	 */
 	public static byte[] generateSalt(int numBytes) {
 		Validate.isTrue(numBytes > 0, "numBytes argument must be a positive integer (1 or larger)", numBytes);
@@ -119,5 +118,5 @@ public class Digests {
 			throw Exceptions.unchecked(e);
 		}
 	}
-	
+
 }
