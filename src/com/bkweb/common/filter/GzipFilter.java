@@ -30,7 +30,7 @@ public class GzipFilter implements Filter {
 	private static boolean isGZipEncoding(HttpServletRequest request) {
 		boolean flag = false;
 		String encoding = request.getHeader("Accept-Encoding");
-		if (encoding.indexOf("gzip") != -1) {
+		if (encoding != null && encoding.indexOf("gzip") != -1) {
 			flag = true;
 		}
 		return flag;
@@ -40,6 +40,8 @@ public class GzipFilter implements Filter {
 			ServletException {
 
 		HttpServletRequest req = (HttpServletRequest) request;
+
+		System.out.println("url>>>>>>>>>>>>>>>" + req.getRequestURI());
 
 		if (isGZipEncoding(req)) {
 			HttpServletResponse resp = (HttpServletResponse) response;
